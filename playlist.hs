@@ -19,3 +19,6 @@ backP :: Playlist -> Playlist
 backP (Play indice lista) = Play (indice - 1) lista
 
 
+resetP :: Playlist -> Playlist
+resetP (Play int lista) = nuevaP lista
+
