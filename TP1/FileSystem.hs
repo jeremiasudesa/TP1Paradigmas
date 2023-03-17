@@ -6,8 +6,8 @@ import Tipos (Etiqueta, insertar)
 data FileSystem = FS [Etiqueta] [Tema] deriving (Eq, Show)
 
 -- Crea un nuevo FileSystem con sus listas vacias.
-nuevoF :: [Etiqueta] -> [Tema] -> FileSystem
-nuevoF = FS
+nuevoF :: FileSystem
+nuevoF = FS [] []
 
 etiquetasF :: FileSystem -> [Etiqueta]
 etiquetasF (FS etiquetas temas) = etiquetas
