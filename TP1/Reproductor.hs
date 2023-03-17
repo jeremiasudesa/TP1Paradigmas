@@ -1,5 +1,5 @@
 module Reproductor
-  ( Reproductor,
+( Reproductor,
     nuevoR,
     archivosR,
     listaParaR,
