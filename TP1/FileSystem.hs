@@ -1,7 +1,7 @@
 module FileSystem (FileSystem, nuevoF, etiquetasF, temasF, agregarF, filtrarF) where
 
-import Tema
-import Tipos
+import Tema (Tema, aplicaT, etiquetasT, nuevoT)
+import Tipos (Etiqueta, insertar)
 
 data FileSystem = FS [Etiqueta] [Tema] deriving (Eq, Show)
 
