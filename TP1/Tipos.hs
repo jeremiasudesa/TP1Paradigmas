@@ -14,4 +14,4 @@ quicksort (x : xs) =
    in smallerSorted ++ [x] ++ biggerSorted
 
 insertar :: Ord a => a -> [a] -> [a]
-insertar palabra (x : xs) = quicksort (palabra : x : xs)
+insertar elemento lista = quicksort (elemento : lista)
