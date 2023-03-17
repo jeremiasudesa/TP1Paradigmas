@@ -20,6 +20,4 @@ agregarT :: Etiqueta -> Tema -> Tema
 agregarT etiqueta (Tem nombre _ datos) = Tem nombre [etiqueta] datos -- dudita, no se si esta bienq que haga esto
 
 aplicaT :: Etiqueta -> Tema -> Bool
-aplicaT etiqueta (Tem nom et dat)
-  | [etiqueta] == et = True
-  | otherwise = False
+aplicaT etiqueta (Tem _ etiquetaTema _) = etiqueta `elem` etiquetaTema
