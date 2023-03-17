@@ -2,12 +2,12 @@ module Tema (Tema, nuevoT, nombreT, datosT, etiquetasT, agregarT, aplicaT )
 
  where
 
-import Tipos
+import Tipos ( Nombre, Etiqueta, Datos )
 
 data Tema = Tem Nombre [ Etiqueta ] Datos deriving (Eq, Show, Ord)
 
 nuevoT :: Nombre -> Datos -> Tema
-nuevoT nombre datos = Tem nombre [] datos
+nuevoT nombre = Tem nombre []
 
 nombreT :: Tema -> Nombre
 nombreT (Tem nombre _ _) = nombre
