@@ -4,8 +4,8 @@ import Tipos (Datos, Etiqueta, Nombre)
 
 data Tema = Tem Nombre [Etiqueta] Datos deriving (Eq, Show, Ord)
 
-nuevoT :: Nombre -> [Etiqueta] -> Datos -> Tema --faltaba etiqueta, preguntar al profe.
-nuevoT = Tem
+nuevoT :: Nombre -> [Etiqueta] -> Datos -> Tema -- faltaba etiqueta, preguntar al profe.
+nuevoT nombre datos = Tem nombre []
 
 nombreT :: Tema -> Nombre
 nombreT (Tem nombre _ _) = nombre
