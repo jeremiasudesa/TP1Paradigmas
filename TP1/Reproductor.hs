@@ -1,5 +1,5 @@
 module Reproductor
-( Reproductor,
+  ( Reproductor,
     nuevoR,
     archivosR,
     listaParaR,
@@ -38,7 +38,7 @@ temasR :: Reproductor -> [Tema]
 temasR (RP fs _) = temasF fs
 
 -- 21. playR :: Reproductor →Etiqueta →Reproductor
-playR x = x
+playR (RP fs _) etiqueta = RP fs (nuevaP (filtrarF etiqueta fs))
 
 -- 22. actualR :: Reproductor → Tema
 actualR :: Reproductor -> Tema
