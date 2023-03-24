@@ -11,6 +11,7 @@ data Playlist = Play Int [Tema] deriving (Eq, Show)
 -- A partir de una lista de temas crea una nueva Playlist con su  indice en cero.
 nuevaP :: [Tema] -> Playlist
 nuevaP (x : xs) = Play 0 (x : xs)
+nuevaP [] = Play 0 []
 
 -- actualP :: Playlist →Tema
 -- Dada una Playlist devuelve el tema en la posicion indicada por el indice.

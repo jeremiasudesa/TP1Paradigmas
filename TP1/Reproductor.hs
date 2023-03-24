@@ -38,7 +38,8 @@ temasR :: Reproductor -> [Tema]
 temasR (RP fs _) = temasF fs
 
 -- 21. playR :: Reproductor →Etiqueta →Reproductor
-playR (RP fs _) etiqueta = RP fs (nuevaP (filtrarF etiqueta fs))
+playR :: Reproductor -> Etiqueta -> Reproductor
+playR (RP fs p) etiqueta = RP fs (nuevaP (listaParaR etiqueta (RP fs p)))
 
 -- 22. actualR :: Reproductor → Tema
 actualR :: Reproductor -> Tema
@@ -73,16 +74,45 @@ cancionesTest para evaluar distintos parametros.
 
 -}
 
+fsBase :: FileSystem
 fsBase = nuevoF
 
+cancionBase :: Tema
 cancionBase = nuevoT "nombre" "dato"
 
-cancionTest1 = agregarT "Celtic Punk" cancionBase
+cancionTest1 :: Tema
+cancionTest1 = agregarT "Unblack metal" cancionBase
 
-cancionTest2 = agregarT "Horror Country" cancionTest1
+cancionTest2 :: Tema
+cancionTest2 = agregarT "Catstep" cancionTest1
 
+fsBase2 :: FileSystem
 fsBase2 = agregarF cancionTest1 fsBase
 
+fsTest :: FileSystem
 fsTest = agregarF cancionTest2 fsBase2
 
-testReproductor = []
+playlistTest :: Playlist
+playlistTest = nuevaP [cancionTest1, cancionTest2]
+
+reproductorBase :: Reproductor
+reproductorBase = nuevoR fsBase
+
+reproductorTest :: Reproductor
+reproductorTest = nuevoR fsTest
+
+reproductorTest2 :: Reproductor
+reproductorTest2 = RP fsTest playlistTest
+
+testReproductor :: [Bool]
+testReproductor =
+  [ reproductorBase == nuevoR fsBase,
+    archivosR reproductorTest == fsTest,
+    listaParaR "Catstep" reproductorTest == [cancionTest2],
+    temasR reproductorTest == [cancionTest2, cancionTest1],
+    playR reproductorTest2 "Unblack metal" == RP fsTest (nuevaP [cancionTest2, cancionTest1]),
+    actualR reproductorTest2 == cancionTest1,
+    avanzarR reproductorTest2 == RP fsTest (skipP playlistTest),
+    retrocederR reproductorTest2 == RP fsTest (backP playlistTest),
+    reiniciarR reproductorTest2 == RP fsTest playlistTest
+  ]

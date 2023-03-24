@@ -49,18 +49,25 @@ cancionesTest para evaluar distintos parametros.
 
 -}
 
+fsBase :: FileSystem
 fsBase = nuevoF
 
+cancionBase :: Tema
 cancionBase = nuevoT "nombre" "dato"
 
+cancionTest1 :: Tema
 cancionTest1 = agregarT "Celtic Punk" cancionBase
 
+cancionTest2 :: Tema
 cancionTest2 = agregarT "Horror Country" cancionTest1
 
+fsBase2 :: FileSystem
 fsBase2 = agregarF cancionTest1 fsBase
 
+fsTest :: FileSystem
 fsTest = agregarF cancionTest2 fsBase2
 
+testFileSystem :: [Bool]
 testFileSystem =
   [ fsBase == nuevoF,
     etiquetasF fsTest == ["Celtic Punk", "Horror Country"],

@@ -26,6 +26,7 @@ TEST
 3) ordenar lista de Nums
 -}
 
+testTipos :: [Bool]
 testTipos =
   [ insertar "tercera" ["ganamos", "la"] == ["ganamos", "la", "tercera"],
     insertar "hola" [] == ["hola"],
