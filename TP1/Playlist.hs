@@ -1,7 +1,9 @@
 module Playlist (Playlist, nuevaP, actualP, skipP, backP, resetP) where
 
-import Tema (Tema)
-import Tipos ()
+import Data.Binary.Get (skip)
+import FileSystem (agregarF)
+import Tema
+import Tipos
 
 data Playlist = Play Int [Tema] deriving (Eq, Show)
 
@@ -11,7 +13,7 @@ nuevaP :: [Tema] -> Playlist
 nuevaP (x : xs) = Play 0 (x : xs)
 
 -- actualP :: Playlist →Tema
--- Dada una Playlist devuelve el tema en la posici ́on indicada por el indice.
+-- Dada una Playlist devuelve el tema en la posicion indicada por el indice.
 actualP :: Playlist -> Tema
 actualP (Play indice lista) = lista !! indice
 
@@ -29,3 +31,16 @@ backP (Play indice lista) = Play (indice - 1) lista
 -- Dada una Playlist crea una nueva con la lista de temas de la original.
 resetP :: Playlist -> Playlist
 resetP (Play int lista) = nuevaP lista
+
+{-
+TEST
+-}
+cancionBase = nuevoT "nombre" "dato"
+
+cancionTest1 = agregarT "Simpsonwave" cancionBase
+
+cancionTest2 = agregarT "Chicano Rap" cancionBase
+
+playlistTest = nuevaP [cancionTest1, cancionTest2]
+
+testPlaylist = [playlistTest == nuevaP [cancionTest1, cancionTest2], actualP playlistTest == cancionTest1]
