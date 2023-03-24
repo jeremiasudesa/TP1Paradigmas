@@ -43,4 +43,4 @@ cancionTest2 = agregarT "Chicano Rap" cancionBase
 
 playlistTest = nuevaP [cancionTest1, cancionTest2]
 
-testPlaylist = [playlistTest == nuevaP [cancionTest1, cancionTest2], actualP playlistTest == cancionTest1]
+testPlaylist = [playlistTest == nuevaP [cancionTest1, cancionTest2], actualP playlistTest == cancionTest1, skipP playlistTest == Play 1 [cancionTest1, cancionTest2], backP (Play 1 [cancionTest1, cancionTest2]) == playlistTest, resetP playlistTest == playlistTest, resetP (Play 1 [cancionTest1, cancionTest2]) == playlistTest]
