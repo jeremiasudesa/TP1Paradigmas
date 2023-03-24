@@ -5,16 +5,20 @@ import Tipos (Etiqueta, insertar)
 
 data FileSystem = FS [Etiqueta] [Tema] deriving (Eq, Show)
 
+--nuevoF :: FileSystem
 -- Crea un nuevo FileSystem con sus listas vacias.
 nuevoF :: FileSystem
 nuevoF = FS [] []
 
+-- etiquetasF :: FileSystem →[ Etiqueta ]
 etiquetasF :: FileSystem -> [Etiqueta]
 etiquetasF (FS etiquetas temas) = etiquetas
 
+-- temasF :: FileSystem →[ Tema ]
 temasF :: FileSystem -> [Tema]
 temasF (FS etiquetas temas) = temas
 
+-- agregarF :: Tema →FileSystem →FileSystem
 -- Agrega el tema y sus etiquetas de ser necesario.
 agregarF :: Tema -> FileSystem -> FileSystem
 agregarF tema (FS etiquetas temas) = FS (foldr insertarUnico (etiquetasT tema) etiquetas) (insertarUnico tema temas)
