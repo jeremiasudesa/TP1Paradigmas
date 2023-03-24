@@ -34,7 +34,19 @@ resetP (Play int lista) = nuevaP lista
 
 {-
 TEST
+setup: primero creamos una "playlistTest", en base a otras
+variables temporales que nos permiten llegar a una playlist
+que tenga sentido testear. Para hacer esto tambien creamos dos
+cancionesTest para evaluar distintos parametros.
+
+1) nos fijamos si nuevaP funciona WLOG
+2) nos fijamos si actualP funciona WLOG
+3) nos fijamos si skipP funciona WLOG
+4) nos fijamos si backP funciona WLOG
+5) nos fijamos si resetP funciona con una playlist cuyo indice ya esta en 0
+6) nos fijamos si resetP funciona WLOG
 -}
+
 cancionBase = nuevoT "nombre" "dato"
 
 cancionTest1 = agregarT "Simpsonwave" cancionBase
