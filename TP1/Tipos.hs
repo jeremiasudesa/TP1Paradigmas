@@ -20,9 +20,14 @@ insertar :: Ord a => a -> [a] -> [a]
 insertar elemento lista = sort (elemento : lista)
 
 {-
+TEST
 1) ordenar lista de strings
 2) meter una lista vacia
 3) ordenar lista de Nums
 -}
 
-testTipos = [insertar "tercera" ["ganamos", "la"] == ["ganamos", "la", "tercera"], insertar "hola" [] == ["hola"], insertar 4.0 [3, 1] == [1, 3, 4.0]]
+testTipos =
+  [ insertar "tercera" ["ganamos", "la"] == ["ganamos", "la", "tercera"],
+    insertar "hola" [] == ["hola"],
+    insertar 4.0 [3, 1] == [1, 3, 4.0]
+  ]

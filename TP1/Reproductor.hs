@@ -55,3 +55,34 @@ retrocederR (RP fs playlist) = RP fs (backP playlist)
 -- 25. reiniciarR :: Reproductor →Reproductor
 reiniciarR :: Reproductor -> Reproductor
 reiniciarR (RP fs playlist) = RP fs (resetP playlist)
+
+{-
+TEST
+setup: primero creamos un "fsBase" que se refiere a un filesystem vacio. Luego,
+en base a otras variables temporales, llegamos a un filesystem
+que tenga sentido testear. Para hacer esto tambien creamos dos
+cancionesTest para evaluar distintos parametros.
+
+1) nos fijamos si fsBase es igual a un filesystem vacio, evaluando nuevoF
+2) nos fijamos si etiquetasF funciona WLOG
+3) nos fijamos si agregarF funciona correctamente en cuanto a etiquetas haciendo uso de etiquetasF WLOG
+4) nos fijamos si temasF funciona WLOG
+5) nos fijamos si agregarF funciona correctamente en cuanto a temas haciendo uso de temasF WLOG
+6) nos fijamos si filtrarF funciona en caso que la etiqueta no este en el FS
+7) nos fijamos si filtrarF funciona WLOG
+
+-}
+
+fsBase = nuevoF
+
+cancionBase = nuevoT "nombre" "dato"
+
+cancionTest1 = agregarT "Celtic Punk" cancionBase
+
+cancionTest2 = agregarT "Horror Country" cancionTest1
+
+fsBase2 = agregarF cancionTest1 fsBase
+
+fsTest = agregarF cancionTest2 fsBase2
+
+testReproductor = []

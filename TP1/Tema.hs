@@ -51,4 +51,13 @@ cancionBase2 = agregarT "plunderphonics" cancionBase1
 
 cancionTest = agregarT "bubblegum bass" cancionBase2
 
-testTema = [cancionBase1 == Tem "nombre" [] "dato", nombreT cancionTest == "nombre", datosT cancionTest == "dato", etiquetasT cancionTest == ["bubblegum bass", "plunderphonics"], null (etiquetasT cancionBase1), not (aplicaT "avant garde" cancionTest), aplicaT "plunderphonics" cancionTest, not (aplicaT "plunderphonics" cancionBase1)]
+testTema =
+  [ cancionBase1 == Tem "nombre" [] "dato",
+    nombreT cancionTest == "nombre",
+    datosT cancionTest == "dato",
+    etiquetasT cancionTest == ["bubblegum bass", "plunderphonics"],
+    null (etiquetasT cancionBase1),
+    not (aplicaT "avant garde" cancionTest),
+    aplicaT "plunderphonics" cancionTest,
+    not (aplicaT "plunderphonics" cancionBase1)
+  ]
