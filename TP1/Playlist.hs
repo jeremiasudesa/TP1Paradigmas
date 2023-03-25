@@ -1,7 +1,6 @@
 module Playlist (Playlist, nuevaP, actualP, skipP, backP, resetP) where
 
-import Data.Binary.Get (skip)
-import FileSystem (agregarF)
+import FileSystem
 import Tema
 import Tipos
 
@@ -46,7 +45,10 @@ cancionesTest para evaluar distintos parametros.
 4) nos fijamos si backP funciona WLOG
 5) nos fijamos si resetP funciona con una playlist cuyo indice ya esta en 0
 6) nos fijamos si resetP funciona WLOG
+7) nos fijamos si nuevaP funciona bien con listas vacias
 -}
+
+playlistVacia = Play 0 []
 
 cancionBase = nuevoT "nombre" "dato"
 
@@ -62,5 +64,6 @@ testPlaylist =
     skipP playlistTest == Play 1 [cancionTest1, cancionTest2],
     backP (Play 1 [cancionTest1, cancionTest2]) == playlistTest,
     resetP playlistTest == playlistTest,
-    resetP (Play 1 [cancionTest1, cancionTest2]) == playlistTest
+    resetP (Play 1 [cancionTest1, cancionTest2]) == playlistTest,
+    nuevaP [] == playlistVacia
   ]
