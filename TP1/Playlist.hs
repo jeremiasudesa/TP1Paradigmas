@@ -1,8 +1,7 @@
 module Playlist (Playlist, nuevaP, actualP, skipP, backP, resetP) where
 
-import FileSystem
-import Tema
-import Tipos
+import Tema (Tema, agregarT, nuevoT)
+import Tipos ()
 
 data Playlist = Play Int [Tema] deriving (Eq, Show)
 

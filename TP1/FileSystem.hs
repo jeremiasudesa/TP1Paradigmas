@@ -1,8 +1,8 @@
 module FileSystem (FileSystem, nuevoF, etiquetasF, temasF, agregarF, filtrarF) where
 
-import Data.List
-import Tema
-import Tipos
+import Data.List (sort)
+import Tema (Tema, agregarT, aplicaT, etiquetasT, nuevoT)
+import Tipos (Etiqueta, insertar)
 
 data FileSystem = FS [Etiqueta] [Tema] deriving (Eq, Show)
 
@@ -22,7 +22,7 @@ temasF (FS etiquetas temas) = temas
 -- agregarF :: Tema →FileSystem →FileSystem
 -- Agrega el tema y sus etiquetas de ser necesario.
 agregarF :: Tema -> FileSystem -> FileSystem
-agregarF tema (FS etiquetas temas) = FS (foldr insertarUnico (sort (etiquetasT tema)) etiquetas) (insertarUnico tema temas)
+agregarF tema (FS etiquetas temas) = FS (foldr insertarUnico (etiquetasT tema) etiquetas) (insertarUnico tema temas)
   where
     insertarUnico elemento lista
       | elemento `notElem` lista = insertar elemento lista

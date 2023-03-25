@@ -1,5 +1,6 @@
 module Tema (Tema, nuevoT, nombreT, datosT, etiquetasT, agregarT, aplicaT) where
 
+import Data.List (sort)
 import Tipos (Datos, Etiqueta, Nombre)
 
 data Tema = Tem Nombre [Etiqueta] Datos deriving (Eq, Show, Ord)
@@ -18,7 +19,7 @@ datosT (Tem _ _ datos) = datos
 
 -- etiquetasT :: Tema →[ Etiqueta ]
 etiquetasT :: Tema -> [Etiqueta]
-etiquetasT (Tem _ etiquetas _) = etiquetas
+etiquetasT (Tem _ etiquetas _) = sort etiquetas
 
 -- agregarT :: Etiqueta →Tema →Tema
 agregarT :: Etiqueta -> Tema -> Tema

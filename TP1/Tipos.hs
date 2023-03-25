@@ -1,6 +1,6 @@
 module Tipos where
 
-import Data.List
+import Data.List (sort)
 
 type Datos = String
 

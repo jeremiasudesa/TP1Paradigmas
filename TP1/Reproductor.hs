@@ -13,15 +13,21 @@ module Reproductor
 where
 
 import FileSystem
-import Playlist
-import Tema
-import Tipos
+  ( FileSystem,
+    agregarF,
+    filtrarF,
+    nuevoF,
+    temasF,
+  )
+import Playlist (Playlist, actualP, backP, nuevaP, resetP, skipP)
+import Tema (Tema, agregarT, nuevoT)
+import Tipos (Etiqueta)
 
 data Reproductor = RP FileSystem Playlist deriving (Eq, Show)
 
 -- 17. nuevoR :: FileSystem →Reproductor
 -- Crea un nuevo reproductor a partir de un FileSystem y una nueva Playlist con su
--- lista de temas vac ́ıa.
+-- lista de temas vacıa.
 nuevoR :: FileSystem -> Reproductor
 nuevoR fs = RP fs (nuevaP [])
 
@@ -58,19 +64,18 @@ reiniciarR :: Reproductor -> Reproductor
 reiniciarR (RP fs playlist) = RP fs (resetP playlist)
 
 {-
-TEST
-setup: primero creamos un "fsBase" que se refiere a un filesystem vacio. Luego,
-en base a otras variables temporales, llegamos a un filesystem
-que tenga sentido testear. Para hacer esto tambien creamos dos
-cancionesTest para evaluar distintos parametros.
+TEST: creamos un reproductor base, en base a un filesystem generico, con playlist vacia.
+También creamos un reproductorTest y reproductorTest2 para poder testear con playlists no vacias.
 
-1) nos fijamos si fsBase es igual a un filesystem vacio, evaluando nuevoF
-2) nos fijamos si etiquetasF funciona WLOG
-3) nos fijamos si agregarF funciona correctamente en cuanto a etiquetas haciendo uso de etiquetasF WLOG
-4) nos fijamos si temasF funciona WLOG
-5) nos fijamos si agregarF funciona correctamente en cuanto a temas haciendo uso de temasF WLOG
-6) nos fijamos si filtrarF funciona en caso que la etiqueta no este en el FS
-7) nos fijamos si filtrarF funciona WLOG
+1) nos fijamos si reproductorBase funciona WLOG
+2) nos fijamos si archivosR funciona WLOG
+3) nos fijamos si listaParaR funciona WLOG
+4) nos fijamos si temasR funciona WLOG
+5) nos fijamos si playR funciona WLOG
+6) nos fijamos si actualR funciona WLOG
+7) nos fijamos si avanzarR funciona WLOG
+8) nos fijamos si retrocederR funciona WLOG
+9) nos fijamos si reiniciarR funciona WLOG
 
 -}
 
@@ -98,8 +103,8 @@ playlistTest = nuevaP [cancionTest1, cancionTest2]
 reproductorBase :: Reproductor
 reproductorBase = nuevoR fsBase
 
-reproductorTest :: Reproductor
-reproductorTest = nuevoR fsTest
+reproductorTest1 :: Reproductor
+reproductorTest1 = nuevoR fsTest
 
 reproductorTest2 :: Reproductor
 reproductorTest2 = RP fsTest playlistTest
@@ -107,9 +112,9 @@ reproductorTest2 = RP fsTest playlistTest
 testReproductor :: [Bool]
 testReproductor =
   [ reproductorBase == nuevoR fsBase,
-    archivosR reproductorTest == fsTest,
-    listaParaR "Catstep" reproductorTest == [cancionTest2],
-    temasR reproductorTest == [cancionTest2, cancionTest1],
+    archivosR reproductorTest1 == fsTest,
+    listaParaR "Catstep" reproductorTest1 == [cancionTest2],
+    temasR reproductorTest1 == [cancionTest2, cancionTest1],
     playR reproductorTest2 "Unblack metal" == RP fsTest (nuevaP [cancionTest2, cancionTest1]),
     actualR reproductorTest2 == cancionTest1,
     avanzarR reproductorTest2 == RP fsTest (skipP playlistTest),
