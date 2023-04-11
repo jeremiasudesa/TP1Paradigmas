@@ -1,32 +1,37 @@
 package stack;
 
-
 public class OOStack {
 	static public String stackEmptyErrorDescription = "Stack is empty";
+	Node<SuperComponent> head;
 
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return true;
+	public OOStack() {
+		// la idea es dejar al fondo un componente vacio que apunta a si mismo
+		// entonces, si hacemos pop sobre una lista con un elemento, va a volver a ser
+		// un emptyStack
+		head.data = new EmptyComponentStack();
+		head.previous = head;
 	}
 
-	public OOStack push(String string) {
-		// TODO Auto-generated method stub
+	public boolean isEmpty() {
+		return head.data.isEmpty();
+	}
+
+	public OOStack push(String value) {
+		head.data.push(value);
 		return this;
 	}
 
 	public Object pop() {
-		// TODO Auto-generated method stub
-		return null;
+		head.data.pop();
+		head = head.previous;
+		return head.data.head.data;
 	}
 
 	public Object top() {
-		// TODO Auto-generated method stub
-		return null;
+		return head.data.top();
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return head.data.size();
 	}
-
 }
