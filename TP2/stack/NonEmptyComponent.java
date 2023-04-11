@@ -2,27 +2,31 @@ package stack;
 
 public class NonEmptyComponent extends SuperComponent {
 
-    public int size = 0;
+	Node<String> head;
 
-    public boolean isEmpty() {
-        return false;
-    }
+	public NonEmptyComponent(String data) {
+		head = new Node<String>(data);
+	}
 
-    public NonEmptyComponent push(String val) {
-        Node<String> nuevoNodo = new Node<String>(val);
-        head.next = nuevoNodo;
-        nuevoNodo.previous = head;
-        head = nuevoNodo;
-        size++;
-        return this;
+	public boolean isEmpty() {
+		return false;
+	}
 
-    }
+	public NonEmptyComponent push(String val) {
+		Node<String> nuevoNodo = new Node<String>(val);
+		head.next = nuevoNodo;
+		nuevoNodo.previous = head;
+		head = nuevoNodo;
+		size++;
+		return this;
 
-    public void pop() {
-    }
+	}
 
-    public String top() {
-        return head.data;
-    }
+	public void pop() {
+	}
+
+	public String top() {
+		return head.data;
+	}
 
 }

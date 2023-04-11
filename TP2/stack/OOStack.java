@@ -8,7 +8,7 @@ public class OOStack {
 		// la idea es dejar al fondo un componente vacio que apunta a si mismo
 		// entonces, si hacemos pop sobre una lista con un elemento, va a volver a ser
 		// un emptyStack
-		head.data = new EmptyComponentStack();
+		head = new Node<SuperComponent>(new EmptyComponentStack());
 		head.previous = head;
 	}
 
