@@ -10,16 +10,16 @@ public class EmptyComponent extends SuperComponent {
 		return new NonEmptyComponent().push(val);
 	}
 
-	void throwStackEmptyErrorDescriptionError() {
-		throw new Error(stackEmptyErrorDescription);
-	}
-
 	public void tryPop() {
 		throwStackEmptyErrorDescriptionError();
 	}
 
 	public void tryTop() {
 		throwStackEmptyErrorDescriptionError();
+	}
+
+	private void throwStackEmptyErrorDescriptionError() {
+		throw new Error(stackEmptyErrorDescription);
 	}
 
 }
