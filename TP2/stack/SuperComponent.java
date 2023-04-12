@@ -3,8 +3,7 @@ package stack;
 public abstract class SuperComponent {
 	static public String stackEmptyErrorDescription = "Stack is empty";
 
-	public int size = 0;
-	public String top;
+	private String top;
 
 	public abstract boolean isEmpty();
 

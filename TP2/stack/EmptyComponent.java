@@ -2,10 +2,6 @@ package stack;
 
 public class EmptyComponent extends SuperComponent {
 
-	public boolean isEmpty() {
-		return true;
-	}
-
 	public NonEmptyComponent push(String val) {
 		return new NonEmptyComponent().push(val);
 	}
@@ -16,6 +12,10 @@ public class EmptyComponent extends SuperComponent {
 
 	public void tryTop() {
 		throwStackEmptyErrorDescriptionError();
+	}
+
+	public boolean isEmpty() {
+		return true;
 	}
 
 	private void throwStackEmptyErrorDescriptionError() {
