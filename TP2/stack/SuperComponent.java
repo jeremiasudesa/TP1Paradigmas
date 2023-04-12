@@ -14,6 +14,10 @@ public abstract class SuperComponent {
 
 	public abstract void tryTop();
 
+	public void setTop(String t) {
+		top = t;
+	}
+
 	public String getTop() {
 		return top;
 	}
