@@ -1,1 +1,11 @@
-.class
+*.class
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows system files
+Thumbs.db
+ehthumbs.db
+# IDE-specific files
+.idea/
+.vscode/
