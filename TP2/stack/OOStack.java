@@ -5,34 +5,34 @@ public class OOStack {
 	Node<SuperComponent> head;
 
 	public OOStack() {
-		head = new Node<SuperComponent>(new EmptyComponentStack());
+		head = new NonEmptyNode<SuperComponent>(new EmptyComponent());
 	}
 
 	public boolean isEmpty() {
-		return head.data.isEmpty();
+		return head.body.isEmpty();
 	}
 
 	public OOStack push(String value) {
-		SuperComponent newComponent = this.head.data.push(value);
-		Node<SuperComponent> newNode = new Node<SuperComponent>(newComponent);
+		SuperComponent newComponent = this.head.body.push(value);
+		Node<SuperComponent> newNode = new NonEmptyNode<SuperComponent>(newComponent);
 		newNode.previous = head;
 		head = newNode;
 		return this;
 	}
 
 	public Object pop() {
-		Object ret = head.data.top;
-		head.data.tryPop();
+		Object ret = head.body.top;
+		head.body.tryPop();
 		head = head.previous;
 		return ret;
 	}
 
 	public Object top() {
-		head.data.tryTop();
-		return head.data.top;
+		head.body.tryTop();
+		return head.body.top;
 	}
 
 	public int size() {
-		return head.data.size();
+		return head.getTraceLength();
 	}
 }

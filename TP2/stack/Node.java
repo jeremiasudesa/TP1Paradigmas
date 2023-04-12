@@ -1,10 +1,8 @@
 package stack;
 
-public class Node<T> {
-	T data;
+public abstract class Node<T> {
+	T body;
 	Node<T> previous;
 
-	public Node(T _data) {
-		this.data = _data;
-	}
+	public abstract int getTraceLength();
 }
