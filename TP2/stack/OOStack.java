@@ -5,11 +5,7 @@ public class OOStack {
 	Node<SuperComponent> head;
 
 	public OOStack() {
-		// la idea es dejar al fondo un componente vacio que apunta a si mismo
-		// entonces, si hacemos pop sobre una lista con un elemento, va a volver a ser
-		// un emptyStack
 		head = new Node<SuperComponent>(new EmptyComponentStack());
-		head.previous = head;
 	}
 
 	public boolean isEmpty() {
@@ -17,18 +13,23 @@ public class OOStack {
 	}
 
 	public OOStack push(String value) {
-		head.data.push(value);
+		SuperComponent newComponent = this.head.data.push(value);
+		Node<SuperComponent> newNode = new Node<SuperComponent>(newComponent);
+		newNode.previous = head;
+		head = newNode;
 		return this;
 	}
 
 	public Object pop() {
-		head.data.pop();
+		Object ret = head.data.top;
+		head.data.tryPop();
 		head = head.previous;
-		return head.data.head.data;
+		return ret;
 	}
 
 	public Object top() {
-		return head.data.top();
+		head.data.tryTop();
+		return head.data.top;
 	}
 
 	public int size() {

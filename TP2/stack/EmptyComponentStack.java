@@ -7,15 +7,19 @@ public class EmptyComponentStack extends SuperComponent {
 	}
 
 	public NonEmptyComponent push(String val) {
-		return new NonEmptyComponent(val);
+		return new NonEmptyComponent().push(val);
 	}
 
-	public void pop() {
+	void throwStackEmptyErrorDescriptionError() {
 		throw new Error(stackEmptyErrorDescription);
 	}
 
-	public String top() {
-		throw new Error(stackEmptyErrorDescription);
+	public void tryPop() {
+		throwStackEmptyErrorDescriptionError();
+	}
+
+	public void tryTop() {
+		throwStackEmptyErrorDescriptionError();
 	}
 
 }
