@@ -9,11 +9,11 @@ public class OOStack {
 	}
 
 	public boolean isEmpty() {
-		return head.body.isEmpty();
+		return head.getBody().isEmpty();
 	}
 
 	public OOStack push(String value) {
-		SuperComponent newComponent = this.head.body.push(value);
+		SuperComponent newComponent = this.head.getBody().push(value);
 		Node<SuperComponent> newNode = new NonEmptyNode<SuperComponent>(newComponent);
 		newNode.previous = head;
 		head = newNode;
@@ -21,7 +21,7 @@ public class OOStack {
 	}
 
 	public Object pop() {
-		Object ret = head.body.top;
+		Object ret = head.getBody().getTop();
 		head.body.tryPop();
 		head = head.previous;
 		return ret;
@@ -29,7 +29,7 @@ public class OOStack {
 
 	public Object top() {
 		head.body.tryTop();
-		return head.body.top;
+		return head.getBody().getTop();
 	}
 
 	public int size() {
