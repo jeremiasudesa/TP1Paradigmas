@@ -13,9 +13,10 @@ public class NonEmptyComponent extends SuperComponent {
 	}
 
 	public NonEmptyComponent push(String val) {
-		this.top = val;
-		this.size++;
-		return this;
+		NonEmptyComponent newComponent = new NonEmptyComponent();
+		newComponent.top = val;
+		newComponent.size = size + 1;
+		return newComponent;
 	}
 
 }
