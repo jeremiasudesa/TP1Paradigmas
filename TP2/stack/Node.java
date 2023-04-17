@@ -1,24 +1,33 @@
 package stack;
 
-public abstract class Node<T> {
-	private T body;
-	private Node<T> previous;
+public abstract class Node {
+	private String body;
+	private Node previous;
 
-	public T getBody() {
+	public void tryTop() {
+	}
+
+	public void tryPop() {
+	}
+
+	public abstract boolean isEmpty();
+
+	public abstract int getTraceLength();
+
+	public String getBody() {
 		return body;
 	}
 
-	public void setBody(T b) {
+	public void setBody(String b) {
 		body = b;
 	}
 
-	public Node<T> getPrevious() {
+	public Node getPrevious() {
 		return previous;
 	}
 
-	public void setPrevious(Node<T> p) {
+	public void setPrevious(Node p) {
 		previous = p;
 	}
 
-	public abstract int getTraceLength();
 }

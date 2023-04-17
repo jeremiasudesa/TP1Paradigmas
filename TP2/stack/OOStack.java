@@ -2,33 +2,33 @@ package stack;
 
 public class OOStack {
 	static public String stackEmptyErrorDescription = "Stack is empty";
-	private Node<SuperComponent> head;
+	private Node head;
 
 	public OOStack() {
-		head = new NonEmptyNode<SuperComponent>(new EmptyComponent());
-	}
-
-	public boolean isEmpty() {
-		return head.getBody().isEmpty();
+		head = new EmptyNode();
 	}
 
 	public OOStack push(String value) {
-		Node<SuperComponent> newNode = new NonEmptyNode<SuperComponent>(new NonEmptyComponent(value));
+		Node newNode = new NonEmptyNode(value);
 		newNode.setPrevious(head);
 		head = newNode;
 		return this;
 	}
 
 	public Object pop() {
-		Object ret = head.getBody().getTop();
-		head.getBody().tryPop();
+		Object ret = head.getBody();
+		head.tryPop();
 		head = head.getPrevious();
 		return ret;
 	}
 
 	public Object top() {
-		head.getBody().tryTop();
-		return head.getBody().getTop();
+		head.tryTop();
+		return head.getBody();
+	}
+
+	public boolean isEmpty() {
+		return head.isEmpty();
 	}
 
 	public int size() {

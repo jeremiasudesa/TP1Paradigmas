@@ -1,10 +1,15 @@
 package stack;
 
-public class NonEmptyNode<T> extends Node<T> {
+public class NonEmptyNode extends Node {
 
-	public NonEmptyNode(T b) {
+	public NonEmptyNode(String b) {
 		setBody(b);
-		setPrevious(new EmptyNode<T>());
+		setPrevious(new EmptyNode());
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return false;
 	}
 
 	@Override

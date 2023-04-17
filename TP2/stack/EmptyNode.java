@@ -1,10 +1,28 @@
 package stack;
 
-public class EmptyNode<T> extends Node<T> {
+public class EmptyNode extends Node {
+
+	@Override
+	public boolean isEmpty() {
+		return true;
+	}
 
 	@Override
 	public int getTraceLength() {
-		return -1;
+		return 0;
 	}
 
+	@Override
+	public void tryPop() {
+		throwStackError();
+	}
+
+	@Override
+	public void tryTop() {
+		throwStackError();
+	}
+
+	private void throwStackError() {
+		throw new Error(OOStack.stackEmptyErrorDescription);
+	}
 }
