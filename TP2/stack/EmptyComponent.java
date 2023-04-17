@@ -2,14 +2,12 @@ package stack;
 
 public class EmptyComponent extends SuperComponent {
 
-	public NonEmptyComponent push(String val) {
-		return new NonEmptyComponent().push(val);
-	}
-
+	@Override
 	public void tryPop() {
 		throwStackEmptyErrorDescriptionError();
 	}
 
+	@Override
 	public void tryTop() {
 		throwStackEmptyErrorDescriptionError();
 	}

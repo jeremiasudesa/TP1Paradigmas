@@ -13,8 +13,7 @@ public class OOStack {
 	}
 
 	public OOStack push(String value) {
-		SuperComponent newComponent = head.getBody().push(value);
-		Node<SuperComponent> newNode = new NonEmptyNode<SuperComponent>(newComponent);
+		Node<SuperComponent> newNode = new NonEmptyNode<SuperComponent>(new NonEmptyComponent(value));
 		newNode.setPrevious(head);
 		head = newNode;
 		return this;

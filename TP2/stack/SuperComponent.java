@@ -3,21 +3,21 @@ package stack;
 public abstract class SuperComponent {
 	static public String stackEmptyErrorDescription = "Stack is empty";
 
-	private String top;
+	private String val;
 
 	public abstract boolean isEmpty();
 
-	public abstract NonEmptyComponent push(String val);
+	public void tryPop() {
+	}
 
-	public abstract void tryPop();
+	public void tryTop() {
+	}
 
-	public abstract void tryTop();
-
-	public void setTop(String t) {
-		top = t;
+	public void setVal(String t) {
+		val = t;
 	}
 
 	public String getTop() {
-		return top;
+		return val;
 	}
 }

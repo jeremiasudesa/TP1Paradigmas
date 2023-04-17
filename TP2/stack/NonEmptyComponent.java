@@ -2,16 +2,8 @@ package stack;
 
 public class NonEmptyComponent extends SuperComponent {
 
-	public void tryPop() {
-	}
-
-	public void tryTop() {
-	}
-
-	public NonEmptyComponent push(String val) {
-		NonEmptyComponent newComponent = new NonEmptyComponent();
-		newComponent.setTop(val);
-		return newComponent;
+	public NonEmptyComponent(String val) {
+		setVal(val);
 	}
 
 	public boolean isEmpty() {
