@@ -13,8 +13,8 @@ public class NonEmptyNode extends Node {
 	}
 
 	@Override
-	public int getTraceLength() {
-		return 1 + getPrevious().getTraceLength();
+	public int getDepth() {
+		return 1 + getPrevious().getDepth();
 	}
 
 }

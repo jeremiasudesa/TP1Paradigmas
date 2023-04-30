@@ -8,21 +8,12 @@ public class EmptyNode extends Node {
 	}
 
 	@Override
-	public int getTraceLength() {
+	public int getDepth() {
 		return 0;
 	}
 
 	@Override
-	public void tryPop() {
-		throwStackError();
-	}
-
-	@Override
-	public void tryTop() {
-		throwStackError();
-	}
-
-	private void throwStackError() {
+	public void tryActionMeantForNonEmpty() {
 		throw new Error(OOStack.stackEmptyErrorDescription);
 	}
 }

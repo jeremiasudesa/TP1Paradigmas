@@ -4,15 +4,12 @@ public abstract class Node {
 	private String body;
 	private Node previous;
 
-	public void tryTop() {
-	}
-
-	public void tryPop() {
+	public void tryActionMeantForNonEmpty() {
 	}
 
 	public abstract boolean isEmpty();
 
-	public abstract int getTraceLength();
+	public abstract int getDepth();
 
 	public String getBody() {
 		return body;

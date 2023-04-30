@@ -2,12 +2,18 @@ package stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class OOStackTest {
+
+	private static final String expectedMessageNotUnderstood = "Expected MessageNotUnderstood Error was not thrown.";
+	private static final String textToTest1 = "Text1";
+	private static final String textToTest2 = "Text2";
 
 	@Test
 	public void test01StackShouldBeEmptyWhenCreated() {
@@ -16,49 +22,37 @@ public class OOStackTest {
 
 	@Test
 	public void test02PushAddElementsToTheStack() {
-		assertFalse(new OOStack().push("Something").isEmpty());
+		assertFalse(new OOStack().push(textToTest1).isEmpty());
 	}
 
 	@Test
 	public void test03PopRemovesElementsFromTheStack() {
-		OOStack stack = new OOStack();
-		stack.push("Something");
-		stack.pop();
+		OOStack stack = stackThatHadSomething();
 		assertTrue(stack.isEmpty());
 	}
 
 	@Test
 	public void test04PopReturnsLastPushedObject() {
-		OOStack stack = new OOStack();
-		String pushedObject = "Something";
-		stack.push(pushedObject);
-		assertEquals(stack.pop(), pushedObject);
+		OOStack stack = stackWithOneText();
+		assertEquals(stack.pop(), textToTest1);
 	}
 
 	@Test
 	public void test05StackBehavesLIFO() {
-		OOStack stack = new OOStack();
-		String firstPushedObject = "First";
-		String secondPushedObject = "Second";
-
-		stack.push(firstPushedObject);
-		stack.push(secondPushedObject);
-
-		assertEquals(stack.pop(), secondPushedObject);
-		assertEquals(stack.pop(), firstPushedObject);
+		OOStack stack = stackWithTwoTexts();
+		assertEquals(stack.pop(), textToTest2);
+		assertEquals(stack.pop(), textToTest1);
 		assertTrue(stack.isEmpty());
 	}
 
 	@Test
 	public void test06TopReturnsLastPushedObject() {
-		String pushedObject = "Something";
-		assertEquals(new OOStack().push(pushedObject).top(), pushedObject);
+		assertEquals(stackWithOneText().top(), textToTest1);
 	}
 
 	@Test
 	public void test07TopDoesNotRemoveObjectFromStack() {
-		OOStack stack = new OOStack();
-		stack.push("Something");
+		OOStack stack = stackWithOneText();
 		assertEquals(stack.size(), 1);
 		stack.top();
 		assertEquals(stack.size(), 1);
@@ -67,35 +61,44 @@ public class OOStackTest {
 	@Test
 	public void test08CanNotPopWhenThereAreNoObjectsInTheStack() {
 		OOStack stack = new OOStack();
-		try {
-			stack.pop();
-			fail("Expected MessageNotUnderstood Error was not thrown.");
-		} catch (Error e) {
-			assertTrue(e.getMessage().equals(OOStack.stackEmptyErrorDescription));
-		}
+		throwsStackEmpty(stack);
 	}
 
 	@Test
 	public void test09CanNotPopWhenThereAreNoObjectsInTheStackAndTheStackHadObjects() {
-		OOStack stack = new OOStack();
-		stack.push("Something");
-		stack.pop();
-		try {
-			stack.pop();
-			fail("Expected MessageNotUnderstood Error was not thrown.");
-		} catch (Error e) {
-			assertTrue(e.getMessage().equals(OOStack.stackEmptyErrorDescription));
-		}
+		OOStack stack = stackThatHadSomething();
+		throwsStackEmpty(stack);
 	}
 
 	@Test
 	public void test10CanNotTopWhenThereAreNoObjectsInTheStack() {
 		OOStack stack = new OOStack();
-		try {
-			stack.top();
-			fail("Expected MessageNotUnderstood Error was not thrown.");
-		} catch (Error e) {
-			assertTrue(e.getMessage().equals(OOStack.stackEmptyErrorDescription));
-		}
+		throwsStackEmpty(stack);
+	}
+
+	private void throwsStackEmpty(OOStack stack) {
+		assertThrowsLike(OOStack.stackEmptyErrorDescription, () -> {
+			stack.pop();
+			fail(expectedMessageNotUnderstood);
+		});
+	}
+
+	private OOStack stackThatHadSomething() {
+
+		OOStack stack = stackWithOneText();
+		stack.pop();
+		return stack;
+	}
+
+	private OOStack stackWithOneText() {
+		return new OOStack().push(textToTest1);
+	}
+
+	private OOStack stackWithTwoTexts() {
+		return stackWithOneText().push(textToTest2);
+	}
+
+	private void assertThrowsLike(String msg, Executable lambda) {
+		assertEquals(msg, assertThrows(Error.class, lambda).getMessage());
 	}
 }

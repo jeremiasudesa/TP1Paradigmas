@@ -17,13 +17,13 @@ public class OOStack {
 
 	public Object pop() {
 		Object ret = head.getBody();
-		head.tryPop();
+		head.tryActionMeantForNonEmpty();
 		head = head.getPrevious();
 		return ret;
 	}
 
 	public Object top() {
-		head.tryTop();
+		head.tryActionMeantForNonEmpty();
 		return head.getBody();
 	}
 
@@ -32,6 +32,7 @@ public class OOStack {
 	}
 
 	public int size() {
-		return head.getTraceLength();
+		return head.getDepth();
 	}
+
 }
