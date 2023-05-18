@@ -7,4 +7,9 @@ public class Left extends Command {
         return c == 'l';
     }
 
+    @Override
+    public void run(MarsRoverState state) {
+        state.setDirection(state.direction().leftDirection());
+    }
+
 }

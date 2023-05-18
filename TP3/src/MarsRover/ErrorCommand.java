@@ -1,15 +1,15 @@
 package MarsRover;
 
-public class Right extends Command {
+public class ErrorCommand extends Command {
 
     @Override
     public boolean canHandle(Character c) {
-        return c == 'r';
+        return false;
     }
 
     @Override
     public void run(MarsRoverState state) {
-        state.setDirection(state.direction().rightDirection());
+        throw new UnsupportedOperationException(Command.NoFittingCommandException);
     }
 
 }

@@ -7,4 +7,9 @@ public class Backward extends Command {
         return c == 'b';
     }
 
+    @Override
+    public void run(MarsRoverState state) {
+        state.setPosition(state.position().add(state.direction().forwardVector().negatedCoordinates()));
+    }
+
 }

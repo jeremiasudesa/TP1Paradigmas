@@ -7,4 +7,9 @@ public class Forward extends Command {
         return c == 'f';
     }
 
+    @Override
+    public void run(MarsRoverState state) {
+        state.setPosition(state.position().add(state.direction().forwardVector()));
+    }
+
 }

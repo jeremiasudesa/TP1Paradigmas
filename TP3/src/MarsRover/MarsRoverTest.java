@@ -1,14 +1,22 @@
 package MarsRover;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.function.Executable;
 
 public class MarsRoverTest {
 
 	static final int initialX = 0, initialY = 0;
-	static final Character CardinalDirection = 'N';
+	static final Direction CardinalDirection = new North();
 	static final String command = "fblr";
+
+	@Test
+	public void errorCommand() {
+		assertThrowsLike(Command.NoFittingCommandException, () -> initialRover().processCommandString("x"));
+	}
 
 	@Test
 	public void forwardTest() {
@@ -24,12 +32,12 @@ public class MarsRoverTest {
 
 	@Test
 	public void leftTest() {
-		assertEquals("O", initialRover().processCommandString("l").state().direction());
+		assertEquals(new West(), initialRover().processCommandString("l").state().direction());
 	}
 
 	@Test
 	public void rightTest() {
-		assertEquals("E", initialRover().processCommandString("l").state().direction());
+		assertEquals(new East(), initialRover().processCommandString("l").state().direction());
 	}
 
 	@Test
@@ -46,14 +54,14 @@ public class MarsRoverTest {
 	@Test
 	public void testDontRotateWithMovementOnly() {
 		String movement = "bbbbffffbbbbbbfbf";
-		assertEquals('N', initialRover().processCommandString(movement).state().direction());
+		assertEquals(new North(), initialRover().processCommandString(movement).state().direction());
 	}
 
-	@Test
-	public void testComplexCommands() {
-		String complexCommandString = "llbbffrff";
-		Coordinate2D desiredCoordinate = ();
-	}
+	// @Test
+	// public void testComplexCommands() {
+	// String complexCommandString = "llbbffrff";
+	// Coordinate2D desiredCoordinate = new Coordinate2D();
+	// }
 
 	private Coordinate2D initialCoordinate2d() {
 		return new Coordinate2D(initialX, initialY);
@@ -62,4 +70,9 @@ public class MarsRoverTest {
 	private MarsRover initialRover() {
 		return new MarsRover(CardinalDirection, initialCoordinate2d());
 	}
+
+	private void assertThrowsLike(String msg, Executable expressionToEvaluate) {
+		assertEquals(msg, assertThrows(Exception.class, expressionToEvaluate).getMessage());
+	}
+
 }
