@@ -1,7 +1,8 @@
 package MarsRover;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +12,21 @@ public class MarsRoverTest {
 
 	static final int initialX = 0, initialY = 0;
 	static final Direction CardinalDirection = new North();
-	static final String command = "fblr";
+
+	@Test
+	public void testCoordinate2DX() {
+		assertEquals(initialCoordinate2D().x, initialX);
+	}
+
+	@Test
+	public void testCoordinate2DY() {
+		assertEquals(initialCoordinate2D().y, initialY);
+	}
+
+	@Test
+	public void testRoverPosition() {
+		assertEquals(initialCoordinate2D(), initialRover().state().position());
+	}
 
 	@Test
 	public void errorCommand() {
@@ -20,55 +35,67 @@ public class MarsRoverTest {
 
 	@Test
 	public void forwardTest() {
-		Coordinate2D newCoordinates = new Coordinate2D(0, 1);
-		assertEquals(newCoordinates, initialRover().processCommandString("f").state().position());
+		assertEquals(new Coordinate2D(0, 1), initialRover().processCommandString("f").state().position());
 	}
 
 	@Test
 	public void backwardsTest() {
-		Coordinate2D newCoordinates = new Coordinate2D(0, -1);
-		assertEquals(newCoordinates, initialRover().processCommandString("b").state().position());
+		assertEquals(new Coordinate2D(0, -1), initialRover().processCommandString("b").state().position());
 	}
 
 	@Test
 	public void leftTest() {
-		assertEquals(new West(), initialRover().processCommandString("l").state().direction());
+		assertTrue(initialRover().processCommandString("l").state().direction() instanceof West);
 	}
 
 	@Test
 	public void rightTest() {
-		assertEquals(new East(), initialRover().processCommandString("l").state().direction());
-	}
-
-	@Test
-	public void testRoverPosition() {
-		assertEquals(initialCoordinate2d(), initialRover().state().position());
+		assertTrue(initialRover().processCommandString("r").state().direction() instanceof East);
 	}
 
 	@Test
 	public void testDontMoveWithRotationsOnly() {
 		String rotations = "lrlrlrlrlrrrlrlrllllrrlrlr";
-		assertEquals(initialCoordinate2d(), initialRover().processCommandString(rotations).state().position());
+		assertEquals(initialCoordinate2D(), initialRover().processCommandString(rotations).state().position());
 	}
 
 	@Test
 	public void testDontRotateWithMovementOnly() {
 		String movement = "bbbbffffbbbbbbfbf";
-		assertEquals(new North(), initialRover().processCommandString(movement).state().direction());
+		assertTrue(initialRover().processCommandString(movement).state().direction() instanceof North);
 	}
 
-	// @Test
-	// public void testComplexCommands() {
-	// String complexCommandString = "llbbffrff";
-	// Coordinate2D desiredCoordinate = new Coordinate2D();
-	// }
+	@Test
+	public void testComplexMovement() {
+		String movement = "llfflbb";
+		assertEquals(new Coordinate2D(-2, -2), initialRover().processCommandString(movement).state().position());
+	}
 
-	private Coordinate2D initialCoordinate2d() {
+	@Test
+	public void testNonCommutative() {
+		String program = "llfflbb", reverseProgram = "bblffll";
+		assertNotEquals(initialRover().processCommandString(program),
+				initialRover().processCommandString(reverseProgram));
+	}
+
+	@Test
+	public void undoRotation() {
+		assertEquals(initialRover().state().direction(),
+				initialRover().processCommandString("l").processCommandString("r").state().direction());
+	}
+
+	@Test
+	public void undoMovement() {
+		assertEquals(initialRover().state().position(),
+				initialRover().processCommandString("f").processCommandString("b").state().position());
+	}
+
+	private Coordinate2D initialCoordinate2D() {
 		return new Coordinate2D(initialX, initialY);
 	}
 
 	private MarsRover initialRover() {
-		return new MarsRover(CardinalDirection, initialCoordinate2d());
+		return new MarsRover(CardinalDirection, initialCoordinate2D());
 	}
 
 	private void assertThrowsLike(String msg, Executable expressionToEvaluate) {

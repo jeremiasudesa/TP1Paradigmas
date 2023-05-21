@@ -7,4 +7,9 @@ public abstract class Direction {
     public abstract Direction rightDirection();
 
     public abstract Direction leftDirection();
+
+    public boolean equals(Object obj) {
+        return (obj != null && getClass() == obj.getClass());
+    }
+
 }

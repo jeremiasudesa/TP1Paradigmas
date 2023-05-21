@@ -20,4 +20,9 @@ public class Coordinate2D {
 		this.y = -1 * this.y;
 		return this;
 	}
+
+	public boolean equals(Object o) {
+		return (o != null && (o.getClass() == this.getClass()) && ((Coordinate2D) o).x == x
+				&& ((Coordinate2D) o).y == y);
+	}
 }

@@ -25,4 +25,5 @@ public class MarsRoverState {
     public void setPosition(Coordinate2D _position) {
         position = _position;
     }
+
 }

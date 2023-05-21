@@ -7,7 +7,4 @@ public abstract class Command {
 
     public abstract void run(MarsRoverState state);
 
-    // public static void errorCommand() {
-    // throw new RuntimeException("Execution Error");
-    // }
 }
