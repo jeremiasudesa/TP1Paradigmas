@@ -1,5 +1,7 @@
 package illipalinret;
 
-public class Board {
+import java.util.ArrayList;
 
+public class Board {
+    ArrayList<Piece> pieces;
 }

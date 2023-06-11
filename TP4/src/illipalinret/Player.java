@@ -1,5 +1,5 @@
 package illipalinret;
 
-public class Peace {
+public class Player {
 
 }
