@@ -10,7 +10,11 @@ public class Board {
     }
 
     public void addPiece(Player player, Piece piece){
+        this.checkOccupiedPosition(piece.position);
+        pieces[player.nextPieceIndex] = piece
+    }
 
-
+    public boolean checkOccupiedPosition(Position position){
+        pieces.stream().reduce(False, (pieces) -> pieces.position == position);
     }
 }
