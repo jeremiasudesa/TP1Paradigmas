@@ -1,18 +1,15 @@
 package illipalinret;
 
-public class Piece {
-    public int row, column;
+public abtract class Piece {
+    public Position position;
     public Char team;
 
-    public Piece(int row_, int column_, Char team_){
-        row = row_;
-        column = column_;
-        team = team_;
+    public Piece(Position newPosition){
+        position = newPosition;
     }
 
-    public void movePiece(int row_, int column_){
-        row = row_;
-        column = column_;
+    public void movePiece(Position newPosition){
+        position = newPosition;
     }
 
 }
