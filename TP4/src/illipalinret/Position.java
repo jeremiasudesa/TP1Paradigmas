@@ -9,5 +9,6 @@ class Position{
 
 @Override
 public boolean equals(Object obj) { return this == obj ? true : obj == null || getClass() != obj.getClass() ? false : row == ((Position)obj).row && col == ((Position)obj).col; }
-
 }
+
+public boolean 

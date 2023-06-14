@@ -1,0 +1,6 @@
+Archivo de Texto:
+-Borrar Piece --> Es solo la position lo que nos importa
+-GameState --> El juego tiene dos fases y cada una deberia ser una clase que herede de una abstracta
+- En juego tenemos a los players, cada uno de los cuales tiene un set de sus posiciones.
+  Entonces, cada vez que queremos fijarnos si una posicion esta ocupada, nos fijamos en los dos sets de cada jugador 
+  (que los conocemos porque somos juego)
