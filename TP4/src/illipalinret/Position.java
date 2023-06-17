@@ -16,7 +16,9 @@ class Position{
 						: row == ((Position) obj).row && col == ((Position) obj).col;
 	}
 
-
+	public boolean lessThan(Position o){
+		return row < o.row && col < o.col; 
+	}
 
 	@Override
 	public int hashCode() {

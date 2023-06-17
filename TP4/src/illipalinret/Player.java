@@ -1,12 +1,11 @@
 package illipalinret;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+import java.util.TreeSet;
 
 public class Player {
     boolean movingPieces = false;
-    Set<Position> positionSet = new HashSet<Position>();
+    TreeSet<Position> positionSet = new TreeSet<Position>();
 
     public Player(){}
 

@@ -1,3 +1,4 @@
 {
-    "codesnap.transparentBackground": false
+    "codesnap.transparentBackground": false,
+    "java.debug.settings.onBuildFailureProceed": true
 }
