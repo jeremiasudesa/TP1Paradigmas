@@ -1,5 +1,5 @@
 package illipalinret;
 
-public class X {
+public class O {
 
 }
