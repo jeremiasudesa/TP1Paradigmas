@@ -10,6 +10,7 @@ public class Player {
     public Player(){}
 
     public void erasePosition(Position newPosition){
+    	
         positionSet.remove(newPosition);
     }
 
@@ -42,6 +43,7 @@ public class Player {
     public boolean equals(Object object) {
   	  return ((object != null) && this.getClass() == object.getClass()) && (this.positionSet.equals(((Player) object).positionSet));
     }
+
 }
     
 

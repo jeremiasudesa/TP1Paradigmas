@@ -9,7 +9,7 @@ public class SlidingGameState extends GameState{
         int dx = Math.abs(oldPosition.col - newPosition.col);
         int dy = Math.abs(oldPosition.row - newPosition.row);
         boolean valid = Math.max(dx, dy) < 2 ;
-        return valid && isInBoard(newPosition);
+        return valid && isInScreen(newPosition);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package illipalinret;
 
-public class OverState extends GameState{
+public class OverState {
 
     static String gameOver = "Game Over";
 

@@ -14,6 +14,8 @@ public class Game {
     static String WrongGameState = "Wrong game state!";
     static String positionIsTakenError = "The position is taken";
     static String invalidMove = "The move is not valid";
+    static String positionDoesntBelongToPlayer = "Position doesn't belong to player!!";
+    static String positionNotInBoard = "The position is outside the board's limits";
 
     public Game(){
         X = new Player();
@@ -26,9 +28,11 @@ public class Game {
     //Slide PLayer
     private void slidePlayerTo(Player player, Position position1, Position position2){
         if (!player.movingPieces)
-            throw new RuntimeException();
+            throw new RuntimeException(WrongGameState);
+    	checkPositionIsInBoard(position2);
         checkTurn(player);
         positionTakenCheck(position2);
+        checkPositionBelongsToPlayer(player, position1);
         state.slidePlayerTo(player, position1, position2);
     }
     
@@ -36,15 +40,26 @@ public class Game {
         slidePlayerTo(X, position1, position2);
     }
     public void slideOto(Position position1, Position position2){
-        state.slidePlayerTo( O, position1, position2);
+        slidePlayerTo( O, position1, position2);
     }
 
     //Put PLayer
     private void putPlayerAt(Player player, Position position){
-
+    	checkPositionIsInBoard(position);
+    	checkPositionOccupied(position);
         checkTurn(player);
         state.putPlayerAt(player, position);
         changeStateIfNeeded();
+    }
+    
+    public void checkPositionBelongsToPlayer(Player player, Position position){
+    	if (!player.positionSet.contains(position))
+    		throw new RuntimeException(this.positionDoesntBelongToPlayer);
+    }
+    
+    public void checkPositionOccupied(Position position) {
+    	if (X.positionSet.contains(position) || O.positionSet.contains(position))
+    		throw new RuntimeException(positionIsTakenError);
     }
     
     public void putXAt(Position position) {
@@ -54,6 +69,8 @@ public class Game {
     public void changeStateIfNeeded(){
         if (O.movingPieces && state instanceof PlacingGameState)
             state = new SlidingGameState();
+        if (isOver())
+        	state = new OverState();
     }
 
 
@@ -63,7 +80,12 @@ public class Game {
 
     public boolean isPlayingX() { return turnsList.get(turnIndex) == X; }
     public boolean isPlayingO() { return turnsList.get(turnIndex) == O; }
-    public boolean isOver() { return hasPlayerXWon() || hasPlayerOWon(); }
+    public boolean isOver() { 
+    	if (O.positionSet.size() == 3) {
+    		return hasPlayerXWon() || hasPlayerOWon();
+    	}
+    	return false;
+    	}
     public boolean isTied() { return !isOver(); }
     public boolean hasPlayerXWon() { return XWon(); }
     public boolean hasPlayerOWon() { return OWon(); }
@@ -86,6 +108,12 @@ public class Game {
     public boolean checkPlayerWon(Player player){
         return checkStraight(player.positionSet) || checkDiagonal(player.positionSet);
     }
+    
+    public boolean checkPositionIsInBoard(Position position) {
+    	if (!state.isInBoard(position))
+    		throw new RuntimeException(positionNotInBoard);
+    	return true;
+    }
 
     public boolean XWon(){
         return checkStraight(X.positionSet) || checkDiagonal(X.positionSet);
@@ -96,21 +124,26 @@ public class Game {
     }
 
     public boolean checkStraight(TreeSet<Position> positionSet){
-        boolean allColumnsSame = false;
-        boolean allRowsSame = false;
+    	boolean allColumnsSame = true;
+    	boolean allRowsSame = true;
         int firstRow = positionSet.first().row;
         int firstCol = positionSet.first().col;
         for(Position i : positionSet){
+        	
             allRowsSame &= firstRow == i.row;
+            
             allColumnsSame &= firstCol == i.col;
         }
         return allColumnsSame || allRowsSame;
     }
 
     public boolean checkDiagonal(TreeSet<Position> positionSet){
-        boolean ret = false;
+        boolean ret = true;
         Position previous = new Position(-1, -1);
-        for(Position i : positionSet)ret &= previous.lessThan(i);
+        for(Position i : positionSet) {
+        	ret &= previous.lessThan(i);
+        	previous = i;
+        }
         return ret;
     }
 }

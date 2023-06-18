@@ -2,7 +2,7 @@ package illipalinret;
 
 import java.util.Objects;
 
-class Position{
+class Position implements Comparable<Position>{
     public int row, col;
     public Position(int _row, int _col){
         row = _row;
@@ -23,6 +23,17 @@ class Position{
 	@Override
 	public int hashCode() {
 		return Objects.hash(row, col);
+	}
+	
+	@Override
+	public int compareTo(Position o) {
+        // For example, compare based on x, then y
+        int xComparison = Integer.compare(this.row, o.row);
+        if (xComparison != 0) {
+            return xComparison;
+        } else {
+            return Integer.compare(this.col, o.col);
+        }
 	}
 
 }
