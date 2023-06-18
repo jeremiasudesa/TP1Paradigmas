@@ -34,13 +34,16 @@ public class Game {
         positionTakenCheck(position2);
         checkPositionBelongsToPlayer(player, position1);
         state.slidePlayerTo(player, position1, position2);
+        changeStateIfNeeded();
     }
     
-    public void slideXto(Position position1, Position position2){ 
+    public Game slideXto(Position position1, Position position2){ 
         slidePlayerTo(X, position1, position2);
+        return this;
     }
-    public void slideOto(Position position1, Position position2){
+    public Game slideOto(Position position1, Position position2){
         slidePlayerTo( O, position1, position2);
+        return this;
     }
 
     //Put PLayer
@@ -54,7 +57,7 @@ public class Game {
     
     public void checkPositionBelongsToPlayer(Player player, Position position){
     	if (!player.positionSet.contains(position))
-    		throw new RuntimeException(this.positionDoesntBelongToPlayer);
+    		throw new RuntimeException(Game.positionDoesntBelongToPlayer);
     }
     
     public void checkPositionOccupied(Position position) {
@@ -62,8 +65,9 @@ public class Game {
     		throw new RuntimeException(positionIsTakenError);
     }
     
-    public void putXAt(Position position) {
+    public Game putXAt(Position position) {
         putPlayerAt(X, position);
+        return this;
     }
 
     public void changeStateIfNeeded(){
@@ -74,21 +78,19 @@ public class Game {
     }
 
 
-    public void putOAt(Position position) {
+    public Game putOAt(Position position) {
         putPlayerAt(O, position);
+        return this;
     }
 
     public boolean isPlayingX() { return turnsList.get(turnIndex) == X; }
     public boolean isPlayingO() { return turnsList.get(turnIndex) == O; }
     public boolean isOver() { 
-    	if (O.positionSet.size() == 3) {
-    		return hasPlayerXWon() || hasPlayerOWon();
-    	}
-    	return false;
+        boolean Ow = (O.positionSet.size() == 3) && OWon() == true;
+        boolean Xw = (X.positionSet.size() == 3) && XWon() == true;
+        return Ow || Xw;
     	}
     public boolean isTied() { return !isOver(); }
-    public boolean hasPlayerXWon() { return XWon(); }
-    public boolean hasPlayerOWon() { return OWon(); }
 
     private void positionTakenCheck(Position position){
         if(positionTaken(position))
