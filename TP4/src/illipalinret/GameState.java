@@ -5,7 +5,6 @@ public abstract class GameState {
     public GameState() {
     }
 
-    //metodos a implementar
     public abstract void slidePlayerTo(Player player,  Position oldPosition, Position newPosition);
     public abstract void putPlayerAt(Player player, Position position);
 

@@ -7,7 +7,6 @@ public class OverState extends GameState{
     public OverState() {
     }
 
-    // metodos a implementar
     public void slidePlayerTo(Player player, Position oldPosition, Position newPosition){
         throw new RuntimeException(gameOver);
     }

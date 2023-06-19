@@ -1,7 +1,9 @@
 package illipalinret;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Game {
 
@@ -125,27 +127,28 @@ public class Game {
         return checkStraight(O.positionSet) || checkDiagonal(O.positionSet);
     }
 
-    public boolean checkStraight(TreeSet<Position> positionSet){
-    	boolean allColumnsSame = true;
-    	boolean allRowsSame = true;
-        int firstRow = positionSet.first().row;
-        int firstCol = positionSet.first().col;
-        for(Position i : positionSet){
-        	
-            allRowsSame &= firstRow == i.row;
-            
-            allColumnsSame &= firstCol == i.col;
+    public boolean checkStraight(Set<Position> positionSet){
+        boolean allColumnsSame = true;
+        boolean allRowsSame = true;
+        Iterator<Position> iterator = positionSet.iterator();
+        Position firstPosition = iterator.next();
+        int firstRow = firstPosition.row;
+        int firstCol = firstPosition.col;
+        while (iterator.hasNext()) {
+            Position position = iterator.next();
+            allRowsSame &= firstRow == position.row;
+            allColumnsSame &= firstCol == position.col;
         }
         return allColumnsSame || allRowsSame;
     }
 
-    public boolean checkDiagonal(TreeSet<Position> positionSet){
-        boolean ret = true;
-        Position previous = new Position(-1, -1);
-        for(Position i : positionSet) {
-        	ret &= previous.lessThan(i);
-        	previous = i;
-        }
-        return ret;
+
+    public boolean checkDiagonal(Set<Position> positionSet){
+        ArrayList<Position> mainDiagonal = new ArrayList<>(Arrays.asList(new Position(0, 0), new Position(1, 1), new Position(2, 2)));
+        ArrayList<Position> inverseDiagonal = new ArrayList<>(Arrays.asList(new Position(2, 0), new Position(1, 1), new Position(0, 2)));
+        boolean mainDiagonalBool = mainDiagonal.stream().allMatch(positionSet::contains);
+        boolean inverseDiagonalBool = inverseDiagonal.stream().allMatch(positionSet::contains);
+        return mainDiagonalBool || inverseDiagonalBool;
     }
+
 }
