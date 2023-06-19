@@ -2,12 +2,13 @@ package illipalinret;
 
 import java.util.Objects;
 
-class Position{
-    public int row, col;
-    public Position(int _row, int _col){
-        row = _row;
-        col = _col;
-    }
+class Position {
+	public int row, col;
+
+	public Position(int _row, int _col) {
+		row = _row;
+		col = _col;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -20,6 +21,5 @@ class Position{
 	public int hashCode() {
 		return Objects.hash(row, col);
 	}
-	
-}
 
+}
