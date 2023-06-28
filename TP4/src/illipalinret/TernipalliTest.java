@@ -33,7 +33,7 @@ public class TernipalliTest {
 	public void testCantSlideWhenGameIsInPuttingPhase() {
 		Game game = originGame();
 		game.putOAt(new Position(2, 1));
-		assertThrowsLike(Game.WrongGameState, () -> originGame().slideXto(origin(), new Position(0, 1)));
+		assertThrowsLike(Game.WrongGameState, () -> game.slideXto(origin(), new Position(0, 1)));
 	}
 
 	@Test
