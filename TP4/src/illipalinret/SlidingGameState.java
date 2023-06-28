@@ -6,6 +6,10 @@ public class SlidingGameState extends GameState {
         super();
     }
 
+    public boolean canHandle(int i) {
+        return (i == 3);
+    }
+    
     public boolean validSlide(Position oldPosition, Position newPosition) {
         int dx = Math.abs(oldPosition.col - newPosition.col);
         int dy = Math.abs(oldPosition.row - newPosition.row);

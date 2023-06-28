@@ -11,6 +11,12 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+// -Diseño:sacan if de"qué-jugador-toca"0.7*0:0
+// -Diseño:sacan if de"qué-etapa-del-juego-está"0.7*0:0
+// -Diseño:sacan if de"quién-ganó"0.7*0:0
+// -No rompen encapsulamiento de los estados al Juego(habiendo creado otras abstracciones)0.5*0:0
+// -No checkea por tipo para saber en qué estado están.0.25*0:0
+
 public class TernipalliTest {
 
 	@Test
@@ -25,7 +31,9 @@ public class TernipalliTest {
 
 	@Test
 	public void testCantSlideWhenGameIsInPuttingPhase() {
-		assertThrowsLike(Game.WrongGameState, () -> originGame().slideOto(origin(), new Position(1, 1)));
+		Game game = originGame();
+		game.putOAt(new Position(2, 1));
+		assertThrowsLike(Game.WrongGameState, () -> originGame().slideXto(origin(), new Position(0, 1)));
 	}
 
 	@Test

@@ -4,12 +4,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Player {
+public abstract class Player {
     boolean movingPieces = false;
     Set<Position> positionSet = new HashSet<>();
 
     public Player() {
     }
+
+    public abstract boolean isPlayingO();
+  
+    public abstract boolean isPlayingX();  
 
     public void erasePosition(Position newPosition) {
 

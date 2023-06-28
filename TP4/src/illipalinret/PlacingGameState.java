@@ -6,6 +6,10 @@ public class PlacingGameState extends GameState {
         super();
     }
 
+    public boolean canHandle(int i){
+        return (i>=0) && (i<3);
+    }
+
     public void putPlayerAt(Player player, Position position) {
         player.addPosition(position);
     }

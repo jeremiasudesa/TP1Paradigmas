@@ -4,6 +4,8 @@ public abstract class GameState {
 
     public GameState() {
     }
+    
+    public abstract boolean canHandle(int i);
 
     public abstract void slidePlayerTo(Player player, Position oldPosition, Position newPosition);
 

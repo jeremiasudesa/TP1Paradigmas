@@ -7,6 +7,10 @@ public class OverState extends GameState {
     public OverState() {
     }
 
+    public boolean canHandle(int i) {
+        return (i == -1);
+    }
+
     public void slidePlayerTo(Player player, Position oldPosition, Position newPosition) {
         throw new RuntimeException(gameOver);
     }

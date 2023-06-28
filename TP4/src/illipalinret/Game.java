@@ -7,10 +7,10 @@ import java.util.Set;
 
 public class Game {
 
+    Player player;
     Player X;
     Player O;
-    int turnIndex;
-    ArrayList<Player> turnsList = new ArrayList<>();
+    ArrayList<GameState> stateList = new ArrayList<>();
     GameState state;
     static String notYourTurn = "It's not that player's turn!!";
     static String WrongGameState = "Wrong game state!";
@@ -20,41 +20,41 @@ public class Game {
     static String positionNotInBoard = "The position is outside the board's limits";
 
     public Game() {
-        X = new Player();
-        O = new Player();
-        turnIndex = 0;
-        turnsList.add(X);
-        turnsList.add(O);
-        state = new PlacingGameState();
+        X = new PLayerX();
+        O = new PlayerO();
+        player = X;
+        stateList.add(new PlacingGameState());
+        stateList.add(new SlidingGameState());
+        stateList.add(new OverState());
     }
 
     private void slidePlayerTo(Player player, Position position1, Position position2) {
-        if (!player.movingPieces)
-            throw new RuntimeException(WrongGameState);
+        changeStateIfNeeded();
         checkPositionIsInBoard(position2);
-        checkTurn(player);
         positionTakenCheck(position2);
         checkPositionBelongsToPlayer(player, position1);
         state.slidePlayerTo(player, position1, position2);
-        changeStateIfNeeded();
     }
 
     public Game slideXto(Position position1, Position position2) {
-        slidePlayerTo(X, position1, position2);
+        player.isPlayingX();
+        slidePlayerTo(player, position1, position2);
+        player = O;
         return this;
     }
 
     public Game slideOto(Position position1, Position position2) {
-        slidePlayerTo(O, position1, position2);
+        player.isPlayingO();
+        slidePlayerTo(player, position1, position2);
+        player = X;
         return this;
     }
 
     private void putPlayerAt(Player player, Position position) {
+        changeStateIfNeeded();
         checkPositionIsInBoard(position);
         checkPositionOccupied(position);
-        checkTurn(player);
         state.putPlayerAt(player, position);
-        changeStateIfNeeded();
     }
 
     public void checkPositionBelongsToPlayer(Player player, Position position) {
@@ -68,28 +68,28 @@ public class Game {
     }
 
     public Game putXAt(Position position) {
-        putPlayerAt(X, position);
+        player.isPlayingX();
+        putPlayerAt(player, position);
+        player = O;
         return this;
-    }
-
-    public void changeStateIfNeeded() {
-        if (O.movingPieces && state instanceof PlacingGameState)
-            state = new SlidingGameState();
-        if (isOver())
-            state = new OverState();
     }
 
     public Game putOAt(Position position) {
-        putPlayerAt(O, position);
+        player.isPlayingO();
+        putPlayerAt(player, position);
+        player = X;
         return this;
     }
-
-    public boolean isPlayingX() {
-        return turnsList.get(turnIndex) == X;
+    public void changeStateIfNeeded() {
+        // if (O.movingPieces && state instanceof PlacingGameState)
+        //     state = new SlidingGameState();
+        // if (isOver())
+        //     state = new OverState();
+        state = stateList.stream().filter( (state) -> state.canHandle( gameStateID() )).findFirst().get();
     }
 
-    public boolean isPlayingO() {
-        return turnsList.get(turnIndex) == O;
+    public int gameStateID(){
+        return (isOver()) ? -1 : O.positionSet.size();
     }
 
     public boolean isOver() {
@@ -105,12 +105,6 @@ public class Game {
     private void positionTakenCheck(Position position) {
         if (positionTaken(position))
             throw new RuntimeException(Game.positionIsTakenError);
-    }
-
-    public void checkTurn(Player player) {
-        if (turnsList.get(turnIndex) != player)
-            throw new RuntimeException(notYourTurn);
-        turnIndex = 1 - turnIndex;
     }
 
     public boolean positionTaken(Position position) {
